@@ -1,41 +1,17 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { movieDetails } from '../../services/api';
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect, Suspense } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
-
-const Container = styled.div`
-  padding: 20px;
-`;
-
-const DetailsWrapper = styled.div`
-  padding-bottom: 20px;
-  display: flex;
-  column-gap: 40px;
-`;
-const LinkWrapper = styled.div`
-  border-top: 1px solid grey;
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  padding-top: 10px;
-`;
-
-const LinkBack = styled(Link)`
-  display: flex;
-  padding: 20px;
-  font-size: 18px;
-  align-items: center;
-  column-gap: 10px;
-`;
-
-const GenresList = styled.ul`
-  padding: 0;
-  margin: 0;
-  display: flex;
-  column-gap: 10px;
-`;
-
+import {
+  Container,
+  DetailsWrapper,
+  LinkWrapper,
+  LinkBack,
+  GenresList,
+  MovieDetail,
+  Rating,
+  LowRating,
+} from './MovieDetails.styled';
 const MovieDetails = () => {
   const [movieDetail, setMovieDetail] = useState({});
   const location = useLocation();
@@ -45,17 +21,15 @@ const MovieDetails = () => {
     movieDetails(movieId).then(data => setMovieDetail(data));
   }, [movieId]);
 
-  const { original_title, overview, genres, poster_path } = movieDetail;
+  const { original_title, overview, genres, poster_path, vote_average } =
+    movieDetail;
 
   return (
     <main>
       <Container>
-        {/* <Link to={location.state?.from ?? `/movies`}> */}
-        <LinkBack to={location.state?.from ?? ''}>
+        <LinkBack to={location.state?.from ?? '/'}>
           <MdOutlineArrowBack size={20} />
           Back to list
-          {/* <HiArrowLeft size="24" /> */}
-          {/* {children} */}
         </LinkBack>
         <DetailsWrapper>
           <img
@@ -65,10 +39,20 @@ const MovieDetails = () => {
                 : `https://thumbs.dreamstime.com/z/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg`
             }
             alt="title"
+            width={400}
+            height={500}
             loading="lazy"
           />
-          <div>
+          <MovieDetail>
             <h2>{original_title}</h2>
+            <h4>
+              Rating:{' '}
+              {vote_average > 6 ? (
+                <Rating>{vote_average}</Rating>
+              ) : (
+                <LowRating>{vote_average}</LowRating>
+              )}
+            </h4>
             <h4>Overview</h4>
             <p>{overview} </p>
             <h4>Genres</h4>
@@ -76,12 +60,14 @@ const MovieDetails = () => {
               {genres &&
                 genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
             </GenresList>
-          </div>
+          </MovieDetail>
         </DetailsWrapper>
         <LinkWrapper>
+          <h4>Additional information</h4>
           <Link to="cast">Cast</Link>
           <Link to="reviews">Reviews</Link>
         </LinkWrapper>
+        <Suspense fallback={<div>Loading subpage...</div>}></Suspense>
         <Outlet />
       </Container>
     </main>
