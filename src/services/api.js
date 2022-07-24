@@ -10,7 +10,6 @@ export const onfetch = async () => {
   return fetchList.data;
 };
 
-// const SearchUrl = `https://api.themoviedb.org/3/search/movie?query=batman&api_key=${API_KEY}&language=en-US&page=1&include_adult=false`;
 export const searchMovies = async query => {
   const response = await axios.get(
     `${BASE_URL}search/movie?query=${query}&api_key=${API_KEY}&language=en-US&page=1&include_adult=false`
@@ -21,6 +20,20 @@ export const searchMovies = async query => {
 export const movieDetails = async movie_id => {
   const response = await axios.get(
     `https://api.themoviedb.org/3/movie/${movie_id}?api_key=${API_KEY}&language=en-US`
+  );
+  return response.data;
+};
+
+export const fetchReview = async review_id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${review_id}/reviews?api_key=${API_KEY}&language=en-US&page=1`
+  );
+  return response.data;
+};
+
+export const fetchMovieCast = async cast_id => {
+  const response = await axios.get(
+    `${BASE_URL}movie/${cast_id}/credits?api_key=${API_KEY}&language=en-US`
   );
   return response.data;
 };

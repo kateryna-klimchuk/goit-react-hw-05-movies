@@ -9,27 +9,18 @@ import Reviews from 'components/Reviews';
 
 const App = () => {
   return (
-    // <div
-    //   style={{
-    //     height: '100vh',
-    //     display: 'flex',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     fontSize: 40,
-    //     color: '#010101',
-    //   }}
-    // >
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<Home />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movies/:movieId" element={<MovieDetails />}>
-          <Route path="movies/:movieId/cast" element={<Cast />} />
-          <Route path="movies/:movieId/reviews" element={<Reviews />} />
+    <div>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<Home />} />
+          <Route path="movies" element={<Movies />} />
+          <Route path="movies/:movieId" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
-    // </div>
+      </Routes>
+    </div>
   );
 };
 export default App;

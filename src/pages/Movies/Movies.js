@@ -2,22 +2,21 @@ import styled from 'styled-components';
 import { searchMovies } from '../../services/api';
 
 import { BiSearch } from 'react-icons/bi';
-import { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, Outlet, useSearchParams, useLocation } from 'react-router-dom';
 
 const SearchForm = styled.form`
-  padding: 40px;
+  padding-top: 20px;
   margin-top: 20px;
-  background-color: beige;
   min-width: 400px;
   display: flex;
   align-item: center;
 `;
 
 const SearchInput = styled.input`
-  border: 1px solid red;
-  padding: 10px;
-  border-radius: 4px;
+  border: 1px solid grey;
+  padding: 10px 20px;
+  //   border-radius: 4px;
   //   &::placeholder {
   //     color: pink;
   //   }
@@ -28,7 +27,7 @@ const SearchButton = styled.button`
   width: 44px;
   height: 40px;
   border: 0;
-  border-radius: 4px;
+  //   border-radius: 4px;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -39,35 +38,54 @@ const SearchButton = styled.button`
     opacity: 1;
   }
 `;
+const MovieList = styled.ul`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+`;
+const SearchLink = styled(Link)`
+  list-style: none;
+  width: fit-content;
+  text-decoration: none;
+  border-bottom: 1px solid grey;
+  color: grey;
+
+  &:hover {
+    padding: 6px;
+    // background-color: #105b72c2;
+    border-radius: 4px;
+    box-shadow: 1px 2px 13px 3px rgba(0, 0, 0, 0.78);
+  }
+`;
 
 const Movies = () => {
-  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
-  //   const [movieId, setMovieId] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieName = searchParams.get('movieName') ?? '';
 
-  //   useEffect(() => {
-  //     searchMovies(query).then(data => setMovies(data.results));
-  //   }, [query]);
+  const location = useLocation();
 
-  const handleInput = event => {
+  useEffect(() => {
+    if (movieName === '') {
+      return;
+    }
+    searchMovies(movieName).then(data => setMovies(data.results));
+  }, [movieName]);
+
+  const handleSubmit = event => {
     event.preventDefault();
-    searchMovies(query).then(data => setMovies(data.results));
+    const searchForm = event.currentTarget;
+    setSearchParams({ movieName: searchForm.elements.movieName.value });
+    searchForm.reset();
   };
 
-  const handleInputChange = event => {
-    setQuery(event.currentTarget.value.toLowerCase());
-  };
-  //   const handleLinkClick = ind => {
-  //     openDetail(ind);
-  //   };
   return (
     <main>
-      <SearchForm onSubmit={handleInput}>
+      <SearchForm onSubmit={handleSubmit}>
         <SearchInput
           type="text"
-          name="searcher"
-          onChange={handleInputChange}
-          value={query}
+          name="movieName"
           autoComplete="off"
           autoFocus
           placeholder="Search movies"
@@ -76,17 +94,18 @@ const Movies = () => {
           <BiSearch size={18} />
         </SearchButton>
       </SearchForm>
-      <ul>
-        {movies.map(movie => {
-          return (
-            <div key={movie.id}>
-              <Link to={`${movie.id}`}>
-                {movie.original_title || movie.name}
-              </Link>
-            </div>
-          );
-        })}
-      </ul>
+      <MovieList>
+        {movies.length > 0 &&
+          movies.map(movie => {
+            return (
+              <div key={movie.id}>
+                <SearchLink to={`${movie.id}`} state={{ from: location }}>
+                  {movie.original_title || movie.name}
+                </SearchLink>
+              </div>
+            );
+          })}
+      </MovieList>
       <Outlet />
     </main>
   );
