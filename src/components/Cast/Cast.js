@@ -21,8 +21,8 @@ const Cast = () => {
             }
             alt="title"
             loading="lazy"
-            width={100}
-            height={150}
+            width={120}
+            height={170}
           />
           <p>{name}</p>
         </li>

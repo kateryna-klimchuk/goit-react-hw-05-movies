@@ -1,6 +1,6 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
 import { movieDetails } from '../../services/api';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   Rating,
   LowRating,
 } from './MovieDetails.styled';
+
 const MovieDetails = () => {
   const [movieDetail, setMovieDetail] = useState({});
   const location = useLocation();
@@ -39,8 +40,8 @@ const MovieDetails = () => {
                 : `https://thumbs.dreamstime.com/z/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg`
             }
             alt="title"
-            width={400}
-            height={500}
+            width={300}
+            height={400}
             loading="lazy"
           />
           <MovieDetail>
@@ -64,10 +65,16 @@ const MovieDetails = () => {
         </DetailsWrapper>
         <LinkWrapper>
           <h4>Additional information</h4>
-          <Link to="cast">Cast</Link>
-          <Link to="reviews">Reviews</Link>
+          <Link to="cast" state={{ ...location.state } || { from: location }}>
+            Cast
+          </Link>
+          <Link
+            to="reviews"
+            state={{ ...location.state } || { from: location }}
+          >
+            Reviews
+          </Link>
         </LinkWrapper>
-        <Suspense fallback={<div>Loading subpage...</div>}></Suspense>
         <Outlet />
       </Container>
     </main>
