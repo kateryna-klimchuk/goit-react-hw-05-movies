@@ -19,7 +19,6 @@ export const SearchButton = styled.button`
   width: 44px;
   height: 40px;
   border: 0;
-  //   border-radius: 4px;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;

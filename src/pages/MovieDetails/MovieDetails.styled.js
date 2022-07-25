@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
-  padding: 20px;
+  padding: 10px;
 `;
 
 export const DetailsWrapper = styled.div`
@@ -24,10 +24,22 @@ export const LinkWrapper = styled.div`
   padding-bottom: 10px;
 `;
 
+export const Button = styled.button`
+  padding: 8px;
+  border-radius: 4px;
+  border: none;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: orangered;
+    color: white;
+    opacity: 0.6;
+  }
+`;
+
 export const LinkBack = styled(Link)`
   display: flex;
-  padding: 20px;
-  font-size: 18px;
+  font-size: 14px;
   align-items: center;
   column-gap: 10px;
 `;

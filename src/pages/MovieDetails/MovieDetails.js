@@ -11,6 +11,7 @@ import {
   MovieDetail,
   Rating,
   LowRating,
+  Button,
 } from './MovieDetails.styled';
 
 const MovieDetails = () => {
@@ -28,10 +29,12 @@ const MovieDetails = () => {
   return (
     <main>
       <Container>
-        <LinkBack to={location.state?.from ?? '/'}>
-          <MdOutlineArrowBack size={20} />
-          Back to list
-        </LinkBack>
+        <Button type="button">
+          <LinkBack to={location.state?.from ?? '/'}>
+            <MdOutlineArrowBack size={16} />
+            Back to list
+          </LinkBack>
+        </Button>
         <DetailsWrapper>
           <img
             src={
@@ -40,8 +43,8 @@ const MovieDetails = () => {
                 : `https://thumbs.dreamstime.com/z/no-image-available-icon-photo-camera-flat-vector-illustration-132483141.jpg`
             }
             alt="title"
-            width={300}
-            height={400}
+            width={220}
+            height={320}
             loading="lazy"
           />
           <MovieDetail>

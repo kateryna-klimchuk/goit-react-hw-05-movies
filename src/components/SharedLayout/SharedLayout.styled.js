@@ -5,7 +5,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding: 0px 20px;
   margin: 0 auto;
-  //   background-color: white;
   min-height: 100vh;
   background: linear-gradient(
     90deg,
@@ -37,5 +36,11 @@ export const Link = styled(NavLink)`
   &.active {
     color: white;
     background-color: orangered;
+  }
+
+  &:hover {
+    background-color: orangered;
+    opacity: 0.4;
+    color: white;
   }
 `;
