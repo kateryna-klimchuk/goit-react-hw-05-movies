@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { HomeLink, MovieList, Title } from './Home.styled';
 
-import { fetchTrendMovies } from '../../services/api';
+import { fetchTrendMovies } from 'services/api';
 
 const Home = () => {
   const [trendMovies, setTrendMovies] = useState([]);

@@ -1,5 +1,5 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
-import { movieDetails } from '../../services/api';
+import { movieDetails } from 'services/api';
 import { useState, useEffect } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import {
@@ -62,19 +62,17 @@ const MovieDetails = () => {
             <h4>Genres</h4>
             <GenresList>
               {genres &&
+                genres.length &&
                 genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
             </GenresList>
           </MovieDetail>
         </DetailsWrapper>
         <LinkWrapper>
           <h4>Additional information</h4>
-          <Link to="cast" state={{ ...location.state } || { from: location }}>
+          <Link to="cast" state={{ ...location.state }}>
             Cast
           </Link>
-          <Link
-            to="reviews"
-            state={{ ...location.state } || { from: location }}
-          >
+          <Link to="reviews" state={{ ...location.state }}>
             Reviews
           </Link>
         </LinkWrapper>
