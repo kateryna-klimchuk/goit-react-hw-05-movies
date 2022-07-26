@@ -1,5 +1,5 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
-import { movieDetails } from 'services/api';
+import { movieDetails } from '../../services/api';
 import { useState, useEffect } from 'react';
 import { MdOutlineArrowBack } from 'react-icons/md';
 import {

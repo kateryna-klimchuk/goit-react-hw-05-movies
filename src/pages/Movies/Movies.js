@@ -2,7 +2,7 @@ import { useState, useEffect, Suspense } from 'react';
 import { Outlet, useSearchParams, useLocation } from 'react-router-dom';
 import Loader from 'components/Loader';
 
-import { searchMovies } from 'services/api';
+import { searchMovies } from '../../services/api';
 import Form from 'components/SearchForm';
 import { List, SearchLink } from './Movies.styled';
 

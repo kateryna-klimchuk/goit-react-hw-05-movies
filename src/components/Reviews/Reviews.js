@@ -1,4 +1,4 @@
-import { fetchReview } from 'services/api';
+import { fetchReview } from '../../services/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ReviewList, ReviewItem, ReviewItemWrap } from './Reviews.styled';
