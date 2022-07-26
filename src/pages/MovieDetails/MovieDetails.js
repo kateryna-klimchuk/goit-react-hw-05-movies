@@ -63,7 +63,7 @@ const MovieDetails = () => {
             <GenresList>
               {genres &&
                 genres.length &&
-                genres.map(genre => <li key={genre.id}>{genre.name}</li>)}
+                genres.map(({ id, name }) => <li key={id}>{name}</li>)}
             </GenresList>
           </MovieDetail>
         </DetailsWrapper>
